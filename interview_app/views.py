@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
 
 
-# todo
+
+#todo
 def index(request):
-    return HttpResponse("Dziala")
+    data = {}
+
+    return JsonResponse(data)
