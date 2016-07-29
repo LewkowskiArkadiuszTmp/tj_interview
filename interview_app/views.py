@@ -4,7 +4,11 @@ from django.http import JsonResponse
 
 
 # todo
-def index(request):
+def index(request, url_parameter):
+    try:
+        url = url_parameter
+    except:
+        raise Http404("Not Found")
     data = {}
     data['html'] = ''
     data['title'] = ''

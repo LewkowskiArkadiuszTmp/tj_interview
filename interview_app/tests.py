@@ -18,4 +18,4 @@ class IndexViewTests(TestCase):
     def index_view_passing_url_parameter(self):
         response = self.client.get(
             reverse('index', kwargs={"url_parameter": "http://wi.pb.bialystok.pl"}))
-        self.assertEqual(response.status_code, 200)    
+        self.assertEqual(response.status_code, 200)

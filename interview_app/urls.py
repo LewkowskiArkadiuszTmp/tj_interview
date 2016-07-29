@@ -2,4 +2,7 @@ from django.conf.urls import patterns, url
 from interview_app import views
 
 urlpatterns = patterns('',
-                       url(r'^$', views.index, name='index'))
+                        #todo regex do ulepszenia
+                       url(r'^(?P<url_parameter>.+)/$',
+                           views.index, name='index'),
+                       )
