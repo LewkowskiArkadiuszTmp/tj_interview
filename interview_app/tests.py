@@ -5,17 +5,6 @@ import json
 
 class IndexViewTests(TestCase):
 
-    def test_index_view_return_empty_json(self):
-        response = self.client.get(reverse('index'))
-        self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content, {})
-
-    def test_index_view_return_valid_json_format(self):
-        response = self.client.get(reverse('index'))
-        self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(response.content, {
-                             "html": "", "title": "", "description": ""})
-
     def test_index_view_passing_url_parameter(self):
         response = self.client.get(
             reverse('index', kwargs={"url_parameter": "http://wi.pb.bialystok.pl"}))
@@ -33,4 +22,4 @@ class IndexViewTests(TestCase):
             reverse('index', kwargs={"url_parameter": "http://wi.pb.bialystok.pl"}))
         content_as_json = json.loads(response.content)
         self.assertEqual(content_as_json[
-                     'description'], "Instytut Informatyki, Dydaktyka, Sieci, Podstawy Informatyki")
+            'description'], "Instytut Informatyki, Dydaktyka, Sieci, Podstawy Informatyki")
