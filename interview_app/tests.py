@@ -4,18 +4,32 @@ from django.core.urlresolvers import reverse
 
 class IndexViewTests(TestCase):
 
-    def index_view_return_empty_json(self):
+    def test_index_view_return_empty_json(self):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {})
 
-    def index_view_return_valid_json_format(self):
+    def test_index_view_return_valid_json_format(self):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(response.content, {
                              "html": "", "title": "", "description": ""})
 
-    def index_view_passing_url_parameter(self):
+    def test_index_view_passing_url_parameter(self):
         response = self.client.get(
             reverse('index', kwargs={"url_parameter": "http://wi.pb.bialystok.pl"}))
         self.assertEqual(response.status_code, 200)
+
+    def test_index_view_return_title(self):
+        response = self.client.get(
+            reverse('index', kwargs={"url_parameter": "http://wi.pb.bialystok.pl"}))
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, {
+                             "html": "", "title": "Aragorn Server", "description": ""})
+
+    def test_index_view_return_description(self):
+        response = self.client.get(
+            reverse('index', kwargs={"url_parameter": "http://wi.pb.bialystok.pl"}))
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(response.content, {
+                             "html": "", "title": "", "description": "Instytut Informatyki, Dydaktyka, Sieci, Podstawy Informatyki"})
