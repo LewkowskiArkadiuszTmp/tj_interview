@@ -29,7 +29,13 @@ class IndexViewTests(TestCase):
         response = self.client.get(
             reverse('index', kwargs={"url_parameter": "http://wi.pb.bialystok.pl"}))
         content_as_json = json.loads(response.content)
-        #jedyny sposob jaki znalazlem na poprawne porownanie duzych stringow
+        # jedyny sposob jaki znalazlem na poprawne porownanie duzych stringow
         html_hash_good = '76bc09f46e153991289c278279f03f99'
-        html_hash_test = hashlib.md5(content_as_json['html'].encode('utf-8')).hexdigest()
-        self.assertEqual(html_hash_good,html_hash_test)
+        html_hash_test = hashlib.md5(
+            content_as_json['html'].encode('utf-8')).hexdigest()
+        self.assertEqual(html_hash_good, html_hash_test)
+
+    def test_wrong_url_name(self):
+        response = self.client.get(
+            reverse('index', kwargs={"url_parameter": "www.wi.pb.bialystok.pl"}))
+        self.assertEqual(response.status_code, 404)
